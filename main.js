@@ -28,21 +28,16 @@ const QUESTIONS = [
   } 
 ];
 
-let currentQuestionCounter = 0; 
-let correctAnswerscounter = 0; 
+const STORE = {
+  question: 0,
+  correct: 0,
+  view: 'start', 
+}
 
 // question counter function
 function questionCounter() {
-    currentQuestionCounter++;
+    STORE.question++;
 }
-
-// increment correct answer function
-if (userAnswer === correctAnswer) { // pseudocode
-    correctAnswerscounter++;
-}
-
-
-
 
 // ========== template generators ============
 
@@ -53,11 +48,12 @@ function (){
 
 // generate template for questions
 function generateQuestionsHTML() {
+  let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section id='js-questions-page'>
   <form>
       <fieldset>
           <legend>Question ${currentQuestionCounter}</legend>
-              <input type='radio' checked>  ${questions}1<br>
+              <input type='radio' checked>  ${currenQuestion.question}1<br>
               <input type='radio'> potential answer 2<br>
               <input type='radio'> potential answer 3<br>
               <input type='radio'> potential answer 4<br>
@@ -102,29 +98,33 @@ function generateFinalPageHTML() {
           </section>`
 }
 
-// ========== Rendering functions ============
-// only place to use .html()
-// ONLY PLACE TO CHANGE THE DOM.
 
-// create function to check and render the proper HTML template
 function checkAnswer(userAnswer) {
-  if (userAnswer === QUESTIONS[i].correct) {
-    const correct = 
-    $('form').html(generateCorrectResultsHTML(correct));
-  } else {
-    const incorrect =
-    $('form').html(generateCorrectResultsHTML(incorrect));
-}
+  if (userAnswer === QUESTIONS[i].correct) { 
+    STORE.view = 'correct';
+    STORE.correct++; 
+  } 
+  else {
+    STORE.view = 'incorrect' 
+  }
 
 
-// function render(state) {
-//   if () {
-//     // change DOM to reflect it
-//     // generateScorePage();
-//   } else {
-
-//   }
-// }
+function render() {
+  if (STORE.view = 'start') {
+    $('form').html(generateStartPage());
+  } 
+  else if (STORE.view = 'final'){
+    $('form').html(generateFinalPageHTML()); 
+  }
+  else if (STORE.view = 'question'){
+      generateGenerateQuestionsHTML();
+  }
+  else if (STORE.view = 'correct')
+    generateCorrectResultsHTML(); 
+  }
+  else{
+    generateIncorrectResultsHTML(); 
+  }
 
 
 
