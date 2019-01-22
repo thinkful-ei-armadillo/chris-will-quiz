@@ -26,7 +26,14 @@ const QUESTIONS = [
     correct: 'Mark Twain',
     answers: ['George Orwell', 'Mark Twain', 'Henry Miller', 'Ken Kesey']
   } 
-]; 
+];
+
+let currentQuestionCounter = 0;
+let correctAnswerscounter = 0; 
+
+function (){
+
+} 
 
 
 
