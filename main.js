@@ -31,6 +31,19 @@ const QUESTIONS = [
 let currentQuestionCounter = 0; 
 let correctAnswerscounter = 0; 
 
+// question counter function
+function questionCounter() {
+    currentQuestionCounter++;
+}
+
+// increment correct answer function
+if (userAnswer === correctAnswer) { // pseudocode
+    correctAnswerscounter++;
+}
+
+
+
+
 // ========== template generators ============
 
 // generate template for first/starting page
@@ -55,8 +68,30 @@ function generateQuestionsHTML() {
 </section>`
 }
 
-// generate template for results of answers
+// generate template for user answering correctly
+function generateCorrectResultsHTML() {
+  return `
+  <section class='results-page'>
+      <h2>Correct! Good job!</h2>
+      <!-- maybe add link to happy picture/gif here -->
+      <button id='js-next-button'>Next Question</button>
+      <!-- progress/results -->
+      <span>So far you have ${score} / ${questionNumber}.</span>
+  </section>`
+  }
 
+// generate template for user answering incorrectly
+function generateIncorrectResultsHTML() { 
+  return `
+    <section class='results-page'>
+      <h2>Sorry! Wrong Answer.</h2>
+      <h4>The answer was ${correctAnswer}</h4>
+      <!-- maybe add link to sad picture/gif here -->
+      <button id='js-next-button'>Next Question</button>
+      <!-- progress/results -->
+      <span>So far you have ${score} / ${questionNumber}.</span>
+    </section>`
+}
 
 
 // generate template for final page of results
@@ -71,15 +106,25 @@ function generateFinalPageHTML() {
 // only place to use .html()
 // ONLY PLACE TO CHANGE THE DOM.
 
-
-function render(state) {
-  if (gameover) {
-    // change DOM to reflect it
-    // generateScorePage();
+// create function to check and render the proper HTML template
+function checkAnswer(userAnswer) {
+  if (userAnswer === QUESTIONS[i].correct) {
+    const correct = 
+    $('form').html(generateCorrectResultsHTML(correct));
   } else {
-
-  }
+    const incorrect =
+    $('form').html(generateCorrectResultsHTML(incorrect));
 }
+
+
+// function render(state) {
+//   if () {
+//     // change DOM to reflect it
+//     // generateScorePage();
+//   } else {
+
+//   }
+// }
 
 
 
