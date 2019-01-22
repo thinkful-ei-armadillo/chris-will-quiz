@@ -28,12 +28,67 @@ const QUESTIONS = [
   } 
 ];
 
-let currentQuestionCounter = 0;
+let currentQuestionCounter = 0; 
 let correctAnswerscounter = 0; 
 
+// ========== template generators ============
+
+// generate template for first/starting page
 function (){
 
 } 
+
+// generate template for questions
+function generateQuestionsHTML() {
+  return `<section id='js-questions-page'>
+  <form>
+      <fieldset>
+          <legend>Question ${currentQuestionCounter}</legend>
+              <input type='radio' checked>  ${questions}1<br>
+              <input type='radio'> potential answer 2<br>
+              <input type='radio'> potential answer 3<br>
+              <input type='radio'> potential answer 4<br>
+      </fieldset> 
+  </form>
+
+  <button id='js-submit-button'>Submit</button>
+</section>`
+}
+
+// generate template for results of answers
+
+
+
+// generate template for final page of results
+function generateFinalPageHTML() {
+  return `<section class='final-page'>
+            <h2>You scored ${correctAnswerscounter} out of 10</h2>
+            <button id='js-reset-button'>Try Again?</button>
+          </section>`
+}
+
+// ========== Rendering functions ============
+// only place to use .html()
+// ONLY PLACE TO CHANGE THE DOM.
+
+
+function render(state) {
+  if (gameover) {
+    // change DOM to reflect it
+    // generateScorePage();
+  } else {
+
+  }
+}
+
+
+
+
+// ========== event handlers ============
+
+
+
+
 
 
 
