@@ -2,7 +2,6 @@
 /* global $ */
 
 
-// static container of questions, correct answers, and possible answers stored in Array of objects
 const QUESTIONS = [
   {
     question: 'Buy the ticket, take the ride',
@@ -15,7 +14,7 @@ const QUESTIONS = [
     answers: ['Ralph Waldo Emerson', 'H.G. Wells', 'Sir Arthur Conan Doyle', 'Kurt Vonnegut']
   },
   {
-    question: 'I love deadlines.  I like the whooosing sound they make as they fly by',
+    question: 'I love deadlines.  I like the whooshing sound they make as they fly by',
     correct: 'Douglas Adams',
     answers: ['Philip Roth', 'J.K. Rowling', 'Douglas Adams', 'William Shakespeare']
   },
@@ -25,36 +24,28 @@ const QUESTIONS = [
     answers: ['Herman Melville', 'Walker Percy', 'Tom Wolfe', 'Fyodor Dostoevsky']
   },
   {
-    question: 'The secret of getting ahead is getting started',
+    question: 'The secret of getting ahead is getting started.',
     correct: 'Mark Twain',
     answers: ['George Orwell', 'Mark Twain', 'Henry Miller', 'Ken Kesey']
   } 
 ];
 
-// container to store values we are manipulating
+
 const STORE = {
   question: 0,
   correct: 0,
   view: 'start'
 };
 
-// ================ FUNCTIONS TO MANIPULATE VALUES IN STORE =============
-
-// function used ONLY to increment question count
 function questionCounter() {
   STORE.question++;
 }
 
-// function used ONLY to increment correct answer count
 function correctAnswers() {
   STORE.correct++;
 }
 
 
-// ================ HTML TEMPLATE GENERATORS =========================
-// template generators (functions that output new HTML strings based on data passed in)
-
-// generate template for first/starting page (syntax error fixed)
 function generateStartHtmlString(){
   return `<section id="js-start-page">
     <h1 id='title'>Famous Literary Figures: What Do They Know? Do They Know Things?</h1>
@@ -62,8 +53,6 @@ function generateStartHtmlString(){
 </section>`;
 }
 
-// generate template for questions 
-// fixed form to display properly & fixed button type error
 function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section class='questions js-questions-page'>
@@ -96,8 +85,6 @@ function generateQuestionsHTML() {
 `;
 }
 
-// generate template for user answering correctly
-// 'Form submission canceled because the form is not connected error.. issues with button? -stackoverflow
 function generateCorrectResultsHTML() {
   return `
   <section class='correct-results js-results-page'>
@@ -110,8 +97,6 @@ function generateCorrectResultsHTML() {
   </section>`;
 }
 
-// generate template for user answering incorrectly
-// subtracted indexes by 1 due to questionCounter() incrementing up before generating this template
 function generateIncorrectResultsHTML() { 
   return `
     <section class='wrong-results js-results-page'>
@@ -126,7 +111,6 @@ function generateIncorrectResultsHTML() {
 }
 
 
-// generate template for final page of results
 function generateFinalPageHTML() {
   if (STORE.correct === 5) {
     return `
@@ -151,14 +135,10 @@ function generateFinalPageHTML() {
     </section>`;
   }
 }
-// ======================== RENDERING FUNCTIONS =========================
-// (functions that read from STORE, calhttp://www.horizon-advisors.com/wp-content/uploads/Books-on-blue.jpgl template generators and add HTML to DOM)
 
 
-// render function with conditions to generate page (fixed render)
 function renderQuizPages() {
   if (STORE.view === 'start') {
-    console.log('start'); // check to see if renderQuizPages() runs on load
     $('.container').html(generateStartHtmlString());
   } else if (STORE.view === 'final') {
     $('.container').html(generateFinalPageHTML());
@@ -171,49 +151,36 @@ function renderQuizPages() {
   }
 }
 
-// function to check if user answer is correct
 function checkAnswer() {
-  let userAnswer = $('input:checked').siblings('span').text(); // needed to use text() to turn into string to compare properly
-  console.log(userAnswer);
+  let userAnswer = $('input:checked').siblings('span').text(); 
   let correctAnswer = QUESTIONS[STORE.question].correct; 
-  console.log(correctAnswer);
-  if (userAnswer === correctAnswer) { // conditional check of user answer vs stored correct value
+  if (userAnswer === correctAnswer) { 
     STORE.view = 'correct';
-    correctAnswers(); // increment STORE.correct count
+    correctAnswers(); 
   } else {
     STORE.view = 'incorrect'; 
   }
 }
 
 
-// ====================== EVENT HANDLERS ==============================
-// (event listerners that get user input, update STORE, then call renderers)
-
-
-// start page button event listener
 function handleStartButton() {
   $('.container').on('click', '#js-start-button', function() {
-    STORE.view = 'question'; // change view to questions on start click
-    renderQuizPages(); // render quiz to check all conditions to render appropriate page/view
+    STORE.view = 'question'; 
+    renderQuizPages(); 
   });
 }
 
-// submit button event listener ()
 function handleSubmitButton() {
-  $('.container').on('submit', '#questionForm', function() { // fixed DOM targeting
-    checkAnswer(); // invoke function to determine if answer is correct to change view to appropriate value (either 'correct' or incorrect')
-    questionCounter(); // increment question count after submission 
+  $('.container').on('submit', '#questionForm', function() { 
+    checkAnswer(); 
+    questionCounter(); 
     renderQuizPages();
   });
 }
 
-// event listener to move to next question
 function handleNextButton() {
   $('.container').on('click', '#js-next-button', function() {
-    console.log('next button ran');
     const currentQuestionCount = STORE.question;
-    console.log(STORE.correct); // count of correct answers
-    console.log(currentQuestionCount); // count of current question
     if (currentQuestionCount === 5) { 
       STORE.view = 'final';
       renderQuizPages();
@@ -222,24 +189,19 @@ function handleNextButton() {
       renderQuizPages();
     }
   });
-  // target next button
-  // render() runs and checks STORE.view and load question page[i]
 }
 
-// event listener to reset back to start and refresh all back to 0
+
 function handleResetButton() {
   $('.container').on('click', '#js-reset-button', function() {
-    STORE.view = 'start'; // change view back to start on click
-    STORE.question = 0; // reset to 0 or cant start quiz
-    STORE.correct = 0; // reset score back down to 0
+    STORE.view = 'start';
+    STORE.question = 0; 
+    STORE.correct = 0; 
     renderQuizPages();
   });
-  // target reset button
-  // render() run and checks STORE.view and load the start page
 }
 
 
-// function to run everything
 function handleQuizApp() {
   renderQuizPages();
   handleStartButton();
@@ -248,9 +210,7 @@ function handleQuizApp() {
   handleResetButton();
 }
 
-// execute on page load
+
 $(handleQuizApp);
 
 
-
-// background image - http://www.horizon-advisors.com/wp-content/uploads/Books-on-blue.jpg
