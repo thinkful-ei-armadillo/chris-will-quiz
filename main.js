@@ -69,8 +69,7 @@ function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section class='questions js-questions-page'>
   <form id='questionForm'>
-    <h2 id='question'>Who said: "${currentQuestion.question}"</h2><hr>
-
+    <h2 id='question'>What famous author said: <br><br> "${currentQuestion.question}"?</h2>
     <label>
       <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[0]}</span>
@@ -90,7 +89,6 @@ function generateQuestionsHTML() {
       <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[3]}</span>
     </label><br>
- 
   <input type='submit' value='submit' id="js-submit-button">
 </form>
 `;
@@ -103,9 +101,9 @@ function generateCorrectResultsHTML() {
   <section class='correct-results js-results-page'>
       <h2>Correct! Good job!</h2>
       <!-- maybe add link to happy picture/gif here -->
-      <input type='submit' value='Next' id='js-next-button'><hr>
+      <input type='submit' value='Next' id='js-next-button'><br>
       <!-- progress/results -->
-      <span>So far you have ${STORE.correct} / ${STORE.question}.</span>
+      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span>
   </section>`;
 }
 
@@ -117,9 +115,9 @@ function generateIncorrectResultsHTML() {
       <h2>Sorry! Wrong Answer.</h2>
       <h4>The answer was ${QUESTIONS[STORE.question-1].correct}</h4>
       <!-- maybe add link to sad picture/gif here -->
-      <input type='submit' value='Next' id='js-next-button'><hr>
+      <input type='submit' value='Next' id='js-next-button'><br>
       <!-- progress/results -->
-      <span>So far you have ${STORE.correct} / ${STORE.question}.</span>
+      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span>
     </section>`;
 }
 
@@ -128,13 +126,13 @@ function generateIncorrectResultsHTML() {
 function generateFinalPageHTML() {
   return `
     <section class='final js-final-page'>
-      <h2>You scored ${STORE.correct} out of 5</h2>
+      <h2>You scored ${STORE.correct} out of 5 correctly!</h2>
       <input type='submit' value='Try Again' id='js-reset-button'>
     </section>`;
 }
 
 // ======================== RENDERING FUNCTIONS =========================
-// (functions that read from STORE, call template generators and add HTML to DOM)
+// (functions that read from STORE, calhttp://www.horizon-advisors.com/wp-content/uploads/Books-on-blue.jpgl template generators and add HTML to DOM)
 
 
 // render function with conditions to generate page (fixed render)
