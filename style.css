@@ -9,7 +9,7 @@ body{
     background-repeat: repeat-y;
     /*background-size: cover;*/ 
     color: whitesmoke; 
-    background-position: fixed;
+    /* background-position: absolute; */
     background-size: 100%;  
 }
 
@@ -18,13 +18,14 @@ body{
 }
 
 section{
-    font-size: 25px; 
-    max-width: 750px; 
-    margin-right: 1000px; 
+    margin-top: 25px; 
+    font-size: 12px; 
+    max-width: 350px; 
+    margin-right: 150px; 
 }
 
 input[type='submit'] {
-    font-size: 25px;
+    font-size: 12px;
     padding: 10px;
     margin-top: 25px;
     border-radius: 50px;
@@ -33,20 +34,16 @@ input[type='submit'] {
     color: forestgreen;
     border: 2px solid grey;
     text-transform: uppercase;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-left: 100px; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
 }
+
 input[type='submit']:hover {
     background-color: forestgreen;
     color: gold;
 }
 
-#js-start-page, .final {
-    margin: auto; 
-}
-
 .animated-gif{
-    width: 350px;
-    height: 200px;
+    width: 175px;
+    height: 100px;
     margin: auto;  
 }
