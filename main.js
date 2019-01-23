@@ -51,16 +51,6 @@ function correctAnswers() {
   STORE.correct++;
 }
 
-// function to check if user answer is correct
-// function checkAnswer(userAnswer) {
-//   if (userAnswer === QUESTIONS[STORE.question].correct) { 
-//     STORE.view = 'correct';
-//     STORE.correct++; 
-//   } 
-//   else {
-//     STORE.view = 'incorrect'; 
-//   }
-// }
 
 // ================ HTML TEMPLATE GENERATORS =========================
 // template generators (functions that output new HTML strings based on data passed in)
@@ -76,7 +66,7 @@ function generateStartHtmlString(){
 
 
 // generate template for questions 
-// need to fix, questions arent displaying correctly
+// fixed form to display properly
 function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section class='questions js-questions-page'>
@@ -103,7 +93,7 @@ function generateQuestionsHTML() {
       <input class="answer" type="radio" name="option"></input>
       <span>${currentQuestion.answers[3]}</span>
     </label><br>
-    
+
   </fieldset>  
   <button id="js-submit-button">Submit</button>
 </form>
@@ -161,11 +151,24 @@ function renderQuizPages() {
     $('.container').html(generateQuestionsHTML());
   } else if (STORE.view === 'correct') {
     $('.container').html(generateCorrectResultsHTML()); 
-  } else {
+  } else if (STORE.view === 'incorrect') {
     $('.container').html(generateIncorrectResultsHTML()); 
   }
 }
 
+// function to check if user answer is correct
+function checkAnswer() {
+  let userAnswer = $('input:checked').siblings('span').text(); // needed to use text() to turn into string to compare properly
+  console.log(userAnswer);
+  let correctAnswer = QUESTIONS[STORE.question].correct; 
+  console.log(correctAnswer);
+  if (userAnswer === correctAnswer) { // conditional check of user answer vs stored correct value
+    STORE.view = 'correct';
+    correctAnswers(); // increment STORE.correct count
+  } else {
+    STORE.view = 'incorrect'; 
+  }
+}
 
 
 // ====================== EVENT HANDLERS ==============================
@@ -174,17 +177,20 @@ function renderQuizPages() {
 // start page button event listener
 function handleStartButton() {
   $('.container').on('click', '#js-start-button', function() {
-    STORE.view = 'question';
-    renderQuizPages();
+    STORE.view = 'question'; // change view to questions on start click
+    renderQuizPages(); // render quiz to check all conditions to render appropriate page/view
   });
 }
 
 
-// submit button event listener
+// submit button event listener ()
 function handleSubmitButton() {
-  // target submit button
-  // render() runs and checks STORE.view and load 
-  
+  $('.container').on('click', '#js-submit-button', function() { // fixed DOM targeting
+    event.preventDefault();
+    checkAnswer(); // invoke function to determine if answer is correct to change view to appropriate value (either 'correct' or incorrect')
+    questionCounter(); // increment question count after submission 
+    renderQuizPages();
+  });
 }
 
 
