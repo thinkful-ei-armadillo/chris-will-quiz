@@ -57,9 +57,8 @@ function correctAnswers() {
 // generate template for first/starting page (syntax error fixed)
 function generateStartHtmlString(){
   return `<section id="js-start-page">
-    <h1>Quiz Time</h1>
-    <h2>Are you ready?</h2>
-    <input type='submit' value='start' id="js-start-button">
+    <h1>Famous Literary Figures: What Do They Know? Do They Know Things?</h1>
+    <input type='submit' value="Let's find out!" id="js-start-button">
 </section>`;
 }
 
@@ -100,10 +99,12 @@ function generateCorrectResultsHTML() {
   return `
   <section class='correct-results js-results-page'>
       <h2>Correct! Good job!</h2>
+      <img class="animated-gif" src="https://media.giphy.com/media/t64o8WukSJwqY/giphy.gif"><br>
+      <!-- progress/results -->
+      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br>
       <!-- maybe add link to happy picture/gif here -->
       <input type='submit' value='Next' id='js-next-button'><br>
-      <!-- progress/results -->
-      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span>
+     
   </section>`;
 }
 
@@ -113,24 +114,41 @@ function generateIncorrectResultsHTML() {
   return `
     <section class='wrong results js-results-page'>
       <h2>Sorry! Wrong Answer.</h2>
+      <img class="animated-gif" src="https://media.giphy.com/media/XK20MK6qLpf9K/giphy.gif"><br>
       <h4>The answer was ${QUESTIONS[STORE.question-1].correct}</h4>
+      <!-- progress/results -->
+      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br>
       <!-- maybe add link to sad picture/gif here -->
       <input type='submit' value='Next' id='js-next-button'><br>
-      <!-- progress/results -->
-      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span>
     </section>`;
 }
 
 
 // generate template for final page of results
 function generateFinalPageHTML() {
-  return `
+  if (STORE.correct === 5) {
+    return `
     <section class='final js-final-page'>
-      <h2>You scored ${STORE.correct} out of 5 correctly!</h2>
+      <h2>You scored ${STORE.correct} out of 5</h2>
+      <img class="animated-gif" src="https://media.giphy.com/media/vIouFhdM5DDzi/giphy.gif"><br>
       <input type='submit' value='Try Again' id='js-reset-button'>
     </section>`;
+  } else if (STORE.correct >= 3) {
+    return `
+    <section class='final js-final-page'>
+      <h2>You scored ${STORE.correct} out of 5</h2>
+      <img class="animated-gif" src= "https://media.giphy.com/media/3ohuAxV0DfcLTxVh6w/giphy.gif"><br>
+      <input type='submit' value='Try Again' id='js-reset-button'>
+    </section>`;
+  } else {
+    return `
+    <section class='final js-final-page'>
+      <h2>You scored ${STORE.correct} out of 5</h2>
+      <img class="animated-gif" src="https://media.giphy.com/media/4YY4DnqeUDBXNTcYMu/giphy.gif"><br>
+      <input type='submit' value='Try Again' id='js-reset-button'>
+    </section>`;
+  }
 }
-
 // ======================== RENDERING FUNCTIONS =========================
 // (functions that read from STORE, calhttp://www.horizon-advisors.com/wp-content/uploads/Books-on-blue.jpgl template generators and add HTML to DOM)
 
