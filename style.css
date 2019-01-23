@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -54,6 +54,11 @@ input[type='submit']:hover {
 
 @media only screen and (min-width: 768px) {
 
+    * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     input[type='submit'] {
         font-size: 28px;
         padding: 10px;
@@ -73,17 +78,21 @@ input[type='submit']:hover {
 
 
     section {
+        display: block;
         margin-top: 10%; 
         font-size: 30px; 
-        max-width: 800px; 
+        max-width: 500px; 
         margin-left: auto;
         margin-right: auto; 
     }
 
 
-    .animated-gif{
-        width: 50%;
-        height: 50%;
-        margin: auto;  
+
+    .animated-gif {
+        display: block;
+        width: 350px;
+        height: 200px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
