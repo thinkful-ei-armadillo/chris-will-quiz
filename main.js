@@ -59,7 +59,7 @@ function generateStartHtmlString(){
   return `<section id="js-start-page">
     <h1>Quiz Time</h1>
     <h2>Are you ready?</h2>
-    <button id="js-start-button">Start Quiz</button>
+    <input type='submit' value='start' id="js-start-button">
 </section>`;
 }
 
@@ -68,7 +68,7 @@ function generateStartHtmlString(){
 function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section class='questions js-questions-page'>
-  <form id='answerForm'>
+  <form id='questionForm'>
     <h2 id='question'>Who said: "${currentQuestion.question}"</h2><hr>
 
     <label>
@@ -91,7 +91,7 @@ function generateQuestionsHTML() {
       <span>${currentQuestion.answers[3]}</span>
     </label><br>
  
-  <input type='submit' value='submit answer' id="js-submit-button">
+  <input type='submit' value='submit' id="js-submit-button">
 </form>
 `;
 }
@@ -103,7 +103,7 @@ function generateCorrectResultsHTML() {
   <section class='correct-results js-results-page'>
       <h2>Correct! Good job!</h2>
       <!-- maybe add link to happy picture/gif here -->
-      <button type=button id='js-next-button'>Next Question</button><hr>
+      <input type='submit' value='Next' id='js-next-button'><hr>
       <!-- progress/results -->
       <span>So far you have ${STORE.correct} / ${STORE.question}.</span>
   </section>`;
@@ -117,7 +117,7 @@ function generateIncorrectResultsHTML() {
       <h2>Sorry! Wrong Answer.</h2>
       <h4>The answer was ${QUESTIONS[STORE.question-1].correct}</h4>
       <!-- maybe add link to sad picture/gif here -->
-      <button type=button id='js-next-button'>Next Question</button><hr>
+      <input type='submit' value='Next' id='js-next-button'><hr>
       <!-- progress/results -->
       <span>So far you have ${STORE.correct} / ${STORE.question}.</span>
     </section>`;
@@ -129,7 +129,7 @@ function generateFinalPageHTML() {
   return `
     <section class='final js-final-page'>
       <h2>You scored ${STORE.correct} out of 5</h2>
-      <button type='button' id='js-reset-button'>Try Again?</button>
+      <input type='submit' value='Next' id='js-reset-button'>
     </section>`;
 }
 
@@ -182,7 +182,7 @@ function handleStartButton() {
 
 // submit button event listener ()
 function handleSubmitButton() {
-  $('.container').on('submit', '#answerForm', function() { // fixed DOM targeting
+  $('.container').on('submit', '#questionForm', function() { // fixed DOM targeting
     checkAnswer(); // invoke function to determine if answer is correct to change view to appropriate value (either 'correct' or incorrect')
     questionCounter(); // increment question count after submission 
     renderQuizPages();
