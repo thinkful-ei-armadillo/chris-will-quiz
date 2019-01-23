@@ -5,27 +5,27 @@
 // static container of questions, correct answers, and possible answers stored in Array of objects
 const QUESTIONS = [
   {
-    question: 'Buy the ticket, take the ride.',
+    question: 'Buy the ticket, take the ride',
     correct: 'Hunter S. Thompson',
     answers: ['Hunter S. Thompson', 'Joseph Heller', 'Ernest Hemingway', 'Henry David Thoreau']
   },
   {
-    question: 'We are what we pretend to be, so we must be careful about what we pretend to be.',
+    question: 'We are what we pretend to be, so we must be careful about what we pretend to be',
     correct: 'Kurt Vonnegut',
     answers: ['Ralph Waldo Emerson', 'H.G. Wells', 'Sir Arthur Conan Doyle', 'Kurt Vonnegut']
   },
   {
-    question: 'I love deadlines.  I like the whooosing sound they make as they fly by.',
+    question: 'I love deadlines.  I like the whooosing sound they make as they fly by',
     correct: 'Douglas Adams',
     answers: ['Philip Roth', 'J.K. Rowling', 'Douglas Adams', 'William Shakespeare']
   },
   {
-    question: 'You can get all A\'s and still flunk life.',
+    question: 'You can get all A\'s and still flunk life',
     correct: 'Walker Percy', 
     answers: ['Herman Melville', 'Walker Percy', 'Tom Wolfe', 'Fyodor Dostoevsky']
   },
   {
-    question: 'The secret of getting ahead is getting started.',
+    question: 'The secret of getting ahead is getting started',
     correct: 'Mark Twain',
     answers: ['George Orwell', 'Mark Twain', 'Henry Miller', 'Ken Kesey']
   } 
@@ -114,7 +114,7 @@ function generateCorrectResultsHTML() {
 // subtracted indexes by 1 due to questionCounter() incrementing up before generating this template
 function generateIncorrectResultsHTML() { 
   return `
-    <section class='wrong results js-results-page'>
+    <section class='wrong-results js-results-page'>
       <h1>Sorry! Wrong Answer.</h1>
       <img class="animated-gif" src="https://media.giphy.com/media/XK20MK6qLpf9K/giphy.gif" alt='wrong answer gif'><br>
       <h2>The answer was ${QUESTIONS[STORE.question-1].correct}</h2>
