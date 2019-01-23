@@ -31,13 +31,12 @@ const QUESTIONS = [
   } 
 ];
 
-// DOM container to store question number and correct answers count. Also store key:value for view for rendering?
+// container to store values we are manipulating
 const STORE = {
   question: 0,
   correct: 0,
   view: 'start'
 };
-// console.log(STORE.view); // returns start
 
 // ================ FUNCTIONS TO MANIPULATE VALUES IN STORE =============
 
@@ -64,44 +63,41 @@ function generateStartHtmlString(){
 </section>`;
 }
 
-
 // generate template for questions 
 // fixed form to display properly & fixed button type error
 function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section class='questions js-questions-page'>
-  <form>
-  <fieldset>
+  <form id='answerForm'>
     <h2 id='question'>Who said: "${currentQuestion.question}"</h2><hr>
 
     <label>
-      <input class="answer" type="radio" name="option" checked></input>
+      <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[0]}</span>
     </label><br>
 
     <label>
-      <input class="answer" type="radio" name="option"></input>
+      <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[1]}</span>
     </label><br>
 
     <label>
-      <input class="answer" type="radio" name="option"></input>
+      <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[2]}</span>
     </label><br>
 
     <label>
-      <input class="answer" type="radio" name="option"></input>
+      <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[3]}</span>
     </label><br>
-
-  </fieldset>  
-  <button type=button id="js-submit-button">Submit</button>
+ 
+  <input type='submit' value='submit answer' id="js-submit-button">
 </form>
 `;
 }
 
 // generate template for user answering correctly
-// 'Form submission canceled because the form is not connected error.. issues with button?
+// 'Form submission canceled because the form is not connected error.. issues with button? -stackoverflow
 function generateCorrectResultsHTML() {
   return `
   <section class='correct-results js-results-page'>
@@ -137,15 +133,14 @@ function generateFinalPageHTML() {
     </section>`;
 }
 
-// ================ RENDERING FUNCTIONS =========================
+// ======================== RENDERING FUNCTIONS =========================
 // (functions that read from STORE, call template generators and add HTML to DOM)
-
 
 
 // render function with conditions to generate page (fixed render)
 function renderQuizPages() {
   if (STORE.view === 'start') {
-    console.log('start');
+    console.log('start'); // check to see if renderQuizPages() runs on load
     $('.container').html(generateStartHtmlString());
   } else if (STORE.view === 'final') {
     $('.container').html(generateFinalPageHTML());
@@ -176,6 +171,7 @@ function checkAnswer() {
 // ====================== EVENT HANDLERS ==============================
 // (event listerners that get user input, update STORE, then call renderers)
 
+
 // start page button event listener
 function handleStartButton() {
   $('.container').on('click', '#js-start-button', function() {
@@ -184,24 +180,22 @@ function handleStartButton() {
   });
 }
 
-
 // submit button event listener ()
 function handleSubmitButton() {
-  $('.container').on('click', '#js-submit-button', function() { // fixed DOM targeting
+  $('.container').on('submit', '#answerForm', function() { // fixed DOM targeting
     checkAnswer(); // invoke function to determine if answer is correct to change view to appropriate value (either 'correct' or incorrect')
     questionCounter(); // increment question count after submission 
     renderQuizPages();
   });
 }
 
-
 // event listener to move to next question
 function handleNextButton() {
   $('.container').on('click', '#js-next-button', function() {
     console.log('next button ran');
-    console.log(STORE.questions); // returns undefined
     const currentQuestionCount = STORE.question;
-    console.log(currentQuestionCount); // returns correct question number count value
+    console.log(STORE.correct); // count of correct answers
+    console.log(currentQuestionCount); // count of current question
     if (currentQuestionCount === 5) { 
       STORE.view = 'final';
       renderQuizPages();
@@ -214,7 +208,6 @@ function handleNextButton() {
   // render() runs and checks STORE.view and load question page[i]
 }
 
-
 // event listener to reset back to start and refresh all back to 0
 function handleResetButton() {
   $('.container').on('click', '#js-reset-button', function() {
@@ -226,7 +219,6 @@ function handleResetButton() {
   // target reset button
   // render() run and checks STORE.view and load the start page
 }
-
 
 
 // function to run everything
