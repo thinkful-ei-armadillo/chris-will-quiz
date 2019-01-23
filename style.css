@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+fieldset{
+    border: 0px; 
+}
+
 
 body{
     background-color: black;
@@ -13,17 +17,22 @@ body{
     background-size: 100%;  
 }
 
-.answer {
-    margin-left: 25px;    
-}
-
 section{
     margin-top: 25px; 
     font-size: 12px; 
     max-width: 250px; 
     margin-right: auto;
-    margin-left: auto;  
+    margin-left: auto;
+    text-align: center;   
 }
+
+form {
+    display: block; 
+    text-align: left;     
+}
+
+
+
 
 input[type='submit'] {
     font-size: 12px;
@@ -50,6 +59,7 @@ input[type='submit']:hover {
     height: 150px;
     margin: auto;  
 }
+
 
 
 @media only screen and (min-width: 768px) {
@@ -79,7 +89,7 @@ input[type='submit']:hover {
 
     section {
         display: block;
-        margin-top: 10%; 
+        margin-top: 50px; 
         font-size: 30px; 
         max-width: 500px; 
         margin-left: auto;
@@ -90,9 +100,15 @@ input[type='submit']:hover {
 
     .animated-gif {
         display: block;
-        width: 350px;
-        height: 200px;
+        width: 500px;
+        height: 350px;
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+@media only screen and (min-width: 960px) {
+section{
+    max-width:750px;     
+}
 }
