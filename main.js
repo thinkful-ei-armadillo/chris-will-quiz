@@ -57,7 +57,7 @@ function correctAnswers() {
 // generate template for first/starting page (syntax error fixed)
 function generateStartHtmlString(){
   return `<section id="js-start-page">
-    <h1>Famous Literary Figures: What Do They Know? Do They Know Things?</h1>
+    <h1 id='title'>Famous Literary Figures: What Do They Know? Do They Know Things?</h1>
     <input type='submit' value="Let's find out!" id="js-start-button">
 </section>`;
 }
@@ -68,7 +68,9 @@ function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section class='questions js-questions-page'>
   <form id='questionForm'>
-    <h2 id='question'>What famous author said: <br><br> "${currentQuestion.question}"?</h2>
+    <fieldset name='questionList'>
+    <legend></legend>
+    <h1 id='question'>What famous author said: <br><br> "${currentQuestion.question}"?</h1>
     <label>
       <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[0]}</span>
@@ -89,6 +91,7 @@ function generateQuestionsHTML() {
       <span>${currentQuestion.answers[3]}</span>
     </label><br>
   <input type='submit' value='submit' id="js-submit-button">
+  </fieldset>
 </form>
 `;
 }
@@ -98,8 +101,8 @@ function generateQuestionsHTML() {
 function generateCorrectResultsHTML() {
   return `
   <section class='correct-results js-results-page'>
-      <h2>Correct! Good job!</h2>
-      <img class="animated-gif" src="https://media.giphy.com/media/t64o8WukSJwqY/giphy.gif"><br>
+      <h1>Correct! Good job!</h1>
+      <img class="animated-gif" src="https://media.giphy.com/media/t64o8WukSJwqY/giphy.gif" alt='correct answer gif'><br>
       <!-- progress/results -->
       <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br>
       <!-- maybe add link to happy picture/gif here -->
@@ -113,9 +116,9 @@ function generateCorrectResultsHTML() {
 function generateIncorrectResultsHTML() { 
   return `
     <section class='wrong results js-results-page'>
-      <h2>Sorry! Wrong Answer.</h2>
-      <img class="animated-gif" src="https://media.giphy.com/media/XK20MK6qLpf9K/giphy.gif"><br>
-      <h4>The answer was ${QUESTIONS[STORE.question-1].correct}</h4>
+      <h1>Sorry! Wrong Answer.</h1>
+      <img class="animated-gif" src="https://media.giphy.com/media/XK20MK6qLpf9K/giphy.gif" alt='wrong answer gif'><br>
+      <h2>The answer was ${QUESTIONS[STORE.question-1].correct}</h2>
       <!-- progress/results -->
       <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br>
       <!-- maybe add link to sad picture/gif here -->
@@ -129,22 +132,22 @@ function generateFinalPageHTML() {
   if (STORE.correct === 5) {
     return `
     <section class='final js-final-page'>
-      <h2>You scored ${STORE.correct} out of 5</h2>
-      <img class="animated-gif" src="https://media.giphy.com/media/vIouFhdM5DDzi/giphy.gif"><br>
+      <h1>You scored ${STORE.correct} out of 5</h1>
+      <img class="animated-gif" src="https://media.giphy.com/media/vIouFhdM5DDzi/giphy.gif" alt='final page gif for perfect score'><br>
       <input type='submit' value='Try Again' id='js-reset-button'>
     </section>`;
   } else if (STORE.correct >= 3) {
     return `
     <section class='final js-final-page'>
-      <h2>You scored ${STORE.correct} out of 5</h2>
-      <img class="animated-gif" src= "https://media.giphy.com/media/3ohuAxV0DfcLTxVh6w/giphy.gif"><br>
+      <h1>You scored ${STORE.correct} out of 5</h1>
+      <img class="animated-gif" src= "https://media.giphy.com/media/3ohuAxV0DfcLTxVh6w/giphy.gif" alt='final page gif for mediocre score'><br>
       <input type='submit' value='Try Again' id='js-reset-button'>
     </section>`;
   } else {
     return `
     <section class='final js-final-page'>
-      <h2>You scored ${STORE.correct} out of 5</h2>
-      <img class="animated-gif" src="https://media.giphy.com/media/4YY4DnqeUDBXNTcYMu/giphy.gif"><br>
+      <h1>You scored ${STORE.correct} out of 5</h1>
+      <img class="animated-gif" src="https://media.giphy.com/media/4YY4DnqeUDBXNTcYMu/giphy.gif" alt='gif for terrible performance'><br>
       <input type='submit' value='Try Again' id='js-reset-button'>
     </section>`;
   }
