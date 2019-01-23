@@ -66,7 +66,7 @@ function generateStartHtmlString(){
 
 
 // generate template for questions 
-// fixed form to display properly
+// fixed form to display properly & fixed button type error
 function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
   return `<section class='questions js-questions-page'>
@@ -95,31 +95,33 @@ function generateQuestionsHTML() {
     </label><br>
 
   </fieldset>  
-  <button id="js-submit-button">Submit</button>
+  <button type=button id="js-submit-button">Submit</button>
 </form>
 `;
 }
 
 // generate template for user answering correctly
+// 'Form submission canceled because the form is not connected error.. issues with button?
 function generateCorrectResultsHTML() {
   return `
   <section class='correct-results js-results-page'>
       <h2>Correct! Good job!</h2>
       <!-- maybe add link to happy picture/gif here -->
-      <button id='js-next-button'>Next Question</button>
+      <button type=button id='js-next-button'>Next Question</button><hr>
       <!-- progress/results -->
       <span>So far you have ${STORE.correct} / ${STORE.question}.</span>
   </section>`;
 }
 
 // generate template for user answering incorrectly
+// subtracted indexes by 1 due to questionCounter() incrementing up before generating this template
 function generateIncorrectResultsHTML() { 
   return `
     <section class='wrong results js-results-page'>
       <h2>Sorry! Wrong Answer.</h2>
-      <h4>The answer was ${QUESTIONS[STORE.question].correct}</h4>
+      <h4>The answer was ${QUESTIONS[STORE.question-1].correct}</h4>
       <!-- maybe add link to sad picture/gif here -->
-      <button id='js-next-button'>Next Question</button>
+      <button type=button id='js-next-button'>Next Question</button><hr>
       <!-- progress/results -->
       <span>So far you have ${STORE.correct} / ${STORE.question}.</span>
     </section>`;
@@ -131,7 +133,7 @@ function generateFinalPageHTML() {
   return `
     <section class='final js-final-page'>
       <h2>You scored ${STORE.correct} out of 5</h2>
-      <button id='js-reset-button'>Try Again?</button>
+      <button type='button' id='js-reset-button'>Try Again?</button>
     </section>`;
 }
 
@@ -186,7 +188,6 @@ function handleStartButton() {
 // submit button event listener ()
 function handleSubmitButton() {
   $('.container').on('click', '#js-submit-button', function() { // fixed DOM targeting
-    event.preventDefault();
     checkAnswer(); // invoke function to determine if answer is correct to change view to appropriate value (either 'correct' or incorrect')
     questionCounter(); // increment question count after submission 
     renderQuizPages();
@@ -196,6 +197,11 @@ function handleSubmitButton() {
 
 // event listener to move to next question
 function handleNextButton() {
+  $('.container').on('click', '#js-next-button', function() {
+    console.log('next button ran');
+    STORE.view = 'question';
+    renderQuizPages();
+  });
   // target next button
   // render() runs and checks STORE.view and load question page[i]
 }
