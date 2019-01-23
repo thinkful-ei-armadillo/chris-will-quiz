@@ -1,27 +1,28 @@
 *{
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 
 body{
-    background-color: blue;
-    background-image: url(http://www.horizon-advisors.com/wp-content/uploads/Books-on-blue.jpg); 
+    background-color: black;
+    background-image: url(https://images.all-free-download.com/images/graphiclarge/book_ends_311495.jpg); 
     background-repeat: repeat-y;
     /*background-size: cover;*/ 
-    color: whitesmoke; 
+    color: black; 
     /* background-position: absolute; */
     background-size: 100%;  
 }
 
 .answer {
-    margin-left: 50px;    
+    margin-left: 25px;    
 }
 
 section{
     margin-top: 25px; 
     font-size: 12px; 
-    max-width: 350px; 
-    margin-right: 150px; 
+    max-width: 250px; 
+    margin-right: auto;
+    margin-left: auto;  
 }
 
 input[type='submit'] {
@@ -34,7 +35,9 @@ input[type='submit'] {
     color: forestgreen;
     border: 2px solid grey;
     text-transform: uppercase;
-    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: auto;  
+    display: block; 
 }
 
 input[type='submit']:hover {
@@ -43,7 +46,7 @@ input[type='submit']:hover {
 }
 
 .animated-gif{
-    width: 175px;
-    height: 100px;
+    width: 225px;
+    height: 150px;
     margin: auto;  
 }

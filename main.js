@@ -89,7 +89,7 @@ function generateQuestionsHTML() {
     <label>
       <input class="answer" type="radio" name="option" required></input>
       <span>${currentQuestion.answers[3]}</span>
-    </label><br>
+    </label><br><br>
   <input type='submit' value='submit' id="js-submit-button">
   </fieldset>
 </form>
@@ -104,10 +104,9 @@ function generateCorrectResultsHTML() {
       <h1>Correct! Good job!</h1>
       <img class="animated-gif" src="https://media.giphy.com/media/t64o8WukSJwqY/giphy.gif" alt='correct answer gif'><br>
       <!-- progress/results -->
-      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br>
+      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br><br>
       <!-- maybe add link to happy picture/gif here -->
-      <input type='submit' value='Next' id='js-next-button'><br>
-     
+      <input type='submit' value='Next' id='js-next-button'>
   </section>`;
 }
 
@@ -120,9 +119,9 @@ function generateIncorrectResultsHTML() {
       <img class="animated-gif" src="https://media.giphy.com/media/XK20MK6qLpf9K/giphy.gif" alt='wrong answer gif'><br>
       <h2>The answer was ${QUESTIONS[STORE.question-1].correct}</h2>
       <!-- progress/results -->
-      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br>
+      <span>So far you have answered ${STORE.correct} / ${STORE.question} correctly.</span><br><br>
       <!-- maybe add link to sad picture/gif here -->
-      <input type='submit' value='Next' id='js-next-button'><br>
+      <input type='submit' value='Next' id='js-next-button'>
     </section>`;
 }
 
