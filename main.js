@@ -199,23 +199,37 @@ function handleSubmitButton() {
 function handleNextButton() {
   $('.container').on('click', '#js-next-button', function() {
     console.log('next button ran');
-    STORE.view = 'question';
-    renderQuizPages();
+    console.log(STORE.questions); // returns undefined
+    const currentQuestionCount = STORE.question;
+    console.log(currentQuestionCount); // returns correct question number count value
+    if (currentQuestionCount === 5) { 
+      STORE.view = 'final';
+      renderQuizPages();
+    } else {
+      STORE.view = 'question';
+      renderQuizPages();
+    }
   });
   // target next button
   // render() runs and checks STORE.view and load question page[i]
 }
 
 
+// event listener to reset back to start and refresh all back to 0
 function handleResetButton() {
+  $('.container').on('click', '#js-reset-button', function() {
+    STORE.view = 'start'; // change view back to start on click
+    STORE.question = 0; // reset to 0 or cant start quiz
+    STORE.correct = 0; // reset score back down to 0
+    renderQuizPages();
+  });
   // target reset button
   // render() run and checks STORE.view and load the start page
 }
 
 
 
-// run everuthing
-
+// function to run everything
 function handleQuizApp() {
   renderQuizPages();
   handleStartButton();
@@ -224,7 +238,7 @@ function handleQuizApp() {
   handleResetButton();
 }
 
-
+// execute on page load
 $(handleQuizApp);
 
 
