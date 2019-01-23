@@ -1,5 +1,8 @@
 'use strict'; 
+/* global $ */
 
+
+// static container of questions, correct answers, and possible answers stored in Array of objects
 const QUESTIONS = [
   {
     question: 'Buy the ticket, take the ride.',
@@ -28,51 +31,89 @@ const QUESTIONS = [
   } 
 ];
 
+// DOM container to store question number and correct answers count. Also store key:value for view for rendering?
 const STORE = {
   question: 0,
   correct: 0,
-  view: 'start', 
+  view: 'start'
 };
+// console.log(STORE.view); // returns start
 
-// question counter function
+// ================ FUNCTIONS TO MANIPULATE VALUES IN STORE =============
+
+// function used ONLY to increment question count
 function questionCounter() {
   STORE.question++;
 }
 
-// ========== template generators ============
+// function used ONLY to increment correct answer count
+function correctAnswers() {
+  STORE.correct++;
+}
 
-// generate template for first/starting page
-function generateStartPage(){
-  return `    
-  <div id='js-welcome'>
-    <h1>Welcome! Are you ready for our quiz?</h1>
-    <h2>This quiz is about ...</h2>
-    <button id='js-start-button'>Start Quiz</button>
-  </div>`;
-} 
+// function to check if user answer is correct
+// function checkAnswer(userAnswer) {
+//   if (userAnswer === QUESTIONS[STORE.question].correct) { 
+//     STORE.view = 'correct';
+//     STORE.correct++; 
+//   } 
+//   else {
+//     STORE.view = 'incorrect'; 
+//   }
+// }
 
-// generate template for questions
+// ================ HTML TEMPLATE GENERATORS =========================
+// template generators (functions that output new HTML strings based on data passed in)
+
+// generate template for first/starting page (syntax error fixed)
+function generateStartHtmlString(){
+  return `<section id="js-start-page">
+    <h1>Quiz Time</h1>
+    <h2>Are you ready?</h2>
+    <button id="js-start-button">Start Quiz</button>
+</section>`;
+}
+
+
+// generate template for questions 
+// need to fix, questions arent displaying correctly
 function generateQuestionsHTML() {
   let currentQuestion = QUESTIONS[STORE.question]; 
-  return `<section id='js-questions-page'>
+  return `<section class='questions js-questions-page'>
   <form>
-      <fieldset>
-          <legend>Question ${currentQuestion.question}</legend>
-              <input type='radio' 'checked' ${currentQuestion.answers[0]}>  
-              <input type='radio' ${currentQuestion.answers[1]}>
-              <input type='radio  ${currentQuestion.answers[2]}>
-              <input type='radio' ${currentQuestion.answers[3]}>
-      </fieldset> 
-  </form>
+  <fieldset>
+    <h2 id='question'>Who said: "${currentQuestion.question}"</h2><hr>
 
-  <button id='js-submit-button'>Submit</button>
-</section>`;
+    <label>
+      <input class="answer" type="radio" name="option" checked></input>
+      <span>${currentQuestion.answers[0]}</span>
+    </label><br>
+
+    <label>
+      <input class="answer" type="radio" name="option"></input>
+      <span>${currentQuestion.answers[1]}</span>
+    </label><br>
+
+    <label>
+      <input class="answer" type="radio" name="option"></input>
+      <span>${currentQuestion.answers[2]}</span>
+    </label><br>
+
+    <label>
+      <input class="answer" type="radio" name="option"></input>
+      <span>${currentQuestion.answers[3]}</span>
+    </label><br>
+    
+  </fieldset>  
+  <button id="js-submit-button">Submit</button>
+</form>
+`;
 }
 
 // generate template for user answering correctly
 function generateCorrectResultsHTML() {
   return `
-  <section class='results-page'>
+  <section class='correct-results js-results-page'>
       <h2>Correct! Good job!</h2>
       <!-- maybe add link to happy picture/gif here -->
       <button id='js-next-button'>Next Question</button>
@@ -84,7 +125,7 @@ function generateCorrectResultsHTML() {
 // generate template for user answering incorrectly
 function generateIncorrectResultsHTML() { 
   return `
-    <section class='results-page'>
+    <section class='wrong results js-results-page'>
       <h2>Sorry! Wrong Answer.</h2>
       <h4>The answer was ${QUESTIONS[STORE.question].correct}</h4>
       <!-- maybe add link to sad picture/gif here -->
@@ -97,48 +138,82 @@ function generateIncorrectResultsHTML() {
 
 // generate template for final page of results
 function generateFinalPageHTML() {
-  return `<section class='final-page'>
-            <h2>You scored ${STORE.correct} out of 5</h2>
-            <button id='js-reset-button'>Try Again?</button>
-          </section>`;
+  return `
+    <section class='final js-final-page'>
+      <h2>You scored ${STORE.correct} out of 5</h2>
+      <button id='js-reset-button'>Try Again?</button>
+    </section>`;
+}
+
+// ================ RENDERING FUNCTIONS =========================
+// (functions that read from STORE, call template generators and add HTML to DOM)
+
+
+
+// render function with conditions to generate page (fixed render)
+function renderQuizPages() {
+  if (STORE.view === 'start') {
+    console.log('start');
+    $('.container').html(generateStartHtmlString());
+  } else if (STORE.view === 'final') {
+    $('.container').html(generateFinalPageHTML());
+  } else if (STORE.view === 'question') {
+    $('.container').html(generateQuestionsHTML());
+  } else if (STORE.view === 'correct') {
+    $('.container').html(generateCorrectResultsHTML()); 
+  } else {
+    $('.container').html(generateIncorrectResultsHTML()); 
+  }
 }
 
 
-function checkAnswer(userAnswer) {
-  if (userAnswer === QUESTIONS[STORE.question].correct) { 
-    STORE.view = 'correct';
-    STORE.correct++; 
-  } 
-  else {
-    STORE.view = 'incorrect'; 
-  }
 
+// ====================== EVENT HANDLERS ==============================
+// (event listerners that get user input, update STORE, then call renderers)
 
-  function render() {
-    if (STORE.view === 'start') {
-      $('form').html(generateStartPage());
-    } 
-    else if (STORE.view === 'final'){
-      $('form').html(generateFinalPageHTML()); 
-    }
-    else if (STORE.view === 'question'){
-      generateQuestionsHTML();
-    }
-    else if (STORE.view === 'correct'){
-      generateCorrectResultsHTML(); 
-    }
-    else{
-      generateIncorrectResultsHTML(); 
-    }
-  }
-
+// start page button event listener
+function handleStartButton() {
+  $('.container').on('click', '#js-start-button', function() {
+    STORE.view = 'question';
+    renderQuizPages();
+  });
 }
 
-// ========== event handlers ============
+
+// submit button event listener
+function handleSubmitButton() {
+  // target submit button
+  // render() runs and checks STORE.view and load 
+  
+}
+
+
+// event listener to move to next question
+function handleNextButton() {
+  // target next button
+  // render() runs and checks STORE.view and load question page[i]
+}
+
+
+function handleResetButton() {
+  // target reset button
+  // render() run and checks STORE.view and load the start page
+}
 
 
 
+// run everuthing
 
+function handleQuizApp() {
+  renderQuizPages();
+  handleStartButton();
+  handleSubmitButton();
+  handleNextButton();
+  handleResetButton();
+}
+
+
+$(handleQuizApp);
 
 
 
