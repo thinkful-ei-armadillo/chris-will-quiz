@@ -129,7 +129,7 @@ function generateFinalPageHTML() {
   return `
     <section class='final js-final-page'>
       <h2>You scored ${STORE.correct} out of 5</h2>
-      <input type='submit' value='Next' id='js-reset-button'>
+      <input type='submit' value='Try Again' id='js-reset-button'>
     </section>`;
 }
 
